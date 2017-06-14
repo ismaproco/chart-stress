@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { BitstampService } from "app/services/bitstamp.service";
+import { VirtualScrollModule } from "app/modules/virtual-scroll";
+
 
 @NgModule({
   declarations: [
@@ -12,9 +15,10 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    VirtualScrollModule
   ],
-  providers: [],
+  providers: [BitstampService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
