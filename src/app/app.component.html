@@ -1,25 +1,21 @@
-<h1>
-  {{title}}
-</h1>
-<!--<div *ngFor="let item of data; trackBy: item?.tid">
-  {{item.date | date:'y-MM-dd HH:mm:ss'}}
-  {{item.price}}
-</div>-->
+<nav>
+  <span class="title">{{title}}</span>
+</nav>
 
-<!--<virtual-scroll >
-    <div *ngFor="let item of viewPortItems">
-      {{item}}
+<div *ngIf="loading">
+  Loading...
+</div>
+
+<div>
+  <virtual-scroll 
+    [items]="data"
+    (change)="indices = $event" 
+    (update)="onUpdate($event)" 
+    style="height: 50vh; display: block">
+    <div *ngFor="let item of scrollItems">
+      {{item.index}}
+      {{item.date | date:'y-MM-dd HH:mm:ss'}}
+      {{item.price}}
     </div>
-</virtual-scroll>-->
-
-<virtual-scroll 
-  [items]="data"
-  (change)="indices = $event" 
-  (update)="onUpdate($event)" 
-  style="height: 50vh; display: block">
-  <div *ngFor="let item of scrollItems">
-    {{item.index}}
-    {{item.date | date:'y-MM-dd HH:mm:ss'}}
-    {{item.price}}
-  </div>
-</virtual-scroll>
+  </virtual-scroll>
+</div>

@@ -12,7 +12,10 @@ import { ObjectListItems, ListItem } from "app/modules/ObjectListItems";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
+  title = 'Chart Stress';
+  
+  loading = false;
+
   data = [];
   protected items: ObjectListItems = new ObjectListItems();
   scrollItems: ListItem[] = [];
@@ -21,18 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._bitstampService.getTransactions(TimeInterval.day).subscribe( _data => {
-      var startDate = new Date();
-      this.data = _data.map( ( d, i ) => {
-        d.date = new Date(d.date * 1000); //transform the unix timestamp to js dateobject
-        d.index = i;
-        return d;
-      });
-      var endDate = new Date();
-      var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
-      console.log(startDate, endDate, seconds);
-      this.items.length = this.data.length;
-    })
+    this.loadData();
   }
 
   //fired when scrolling
@@ -42,5 +34,28 @@ export class AppComponent implements OnInit {
     
     this.scrollItems = this.data.slice(start, end);
   }
+
+  loadData() {
+    var startDate = new Date();
+    this.loading = true;
+    this._bitstampService.getTransactions(TimeInterval.hour).subscribe( _data => {
+      this.data = _data.map( ( d, i ) => {
+        d.date = new Date(d.date * 1000); //transform the unix timestamp to js dateobject
+        d.index = i;
+        return d;
+      });
+      var endDate = new Date();
+      var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+      console.log(startDate, endDate, seconds);
+      this.items.length = this.data.length;
+      this.loading = false;
+    },( _error ) => {
+      console.log('error', _error);
+      this.loading = false;
+    })
+  }
+
+
+
 
 }

@@ -1,0 +1,18 @@
+$deep-purple-900: #311b92;
+$deep-purple-500: #673ab7;
+
+nav {
+    background: $deep-purple-900;
+    color: white;
+    display: flex;
+    padding: 5px;
+    height: 30px;
+    align-items: center;
+
+    .title {
+        font-weight: 600;
+        font-family: 'Dosis', sans-serif;
+        font-size: 1.3rem;
+    }
+}
+

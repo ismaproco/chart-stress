@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { BitstampService } from "app/services/bitstamp.service";
-import { VirtualScrollModule } from "app/modules/virtual-scroll";
+import { VirtualScrollModule } from "app/modules/virtual.scroll.module";
 
 
 @NgModule({
